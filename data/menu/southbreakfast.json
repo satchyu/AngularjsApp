@@ -1,0 +1,16 @@
+{
+	"menu": [{
+	"name": "Dosa",
+	"price": "3"
+}, {
+	"name": "Puri",
+	"price": "5"
+},{
+	"name": "Vada",
+	"price": "7"
+},{
+	"name": "Upma",
+	"price": "3"
+}]
+	
+}

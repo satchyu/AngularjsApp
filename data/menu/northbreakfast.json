@@ -1,0 +1,9 @@
+{
+	"menu": [{
+	"name": "Samosa",
+	"price": "2"
+}, {
+	"name": "Panipuri",
+	"price": "4"
+}]	
+}
