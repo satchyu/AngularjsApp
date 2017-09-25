@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html data-ng-app="peacock">
+
+<head>
+    <title>Angular Js Website for peacock restaurant</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
+      <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-mocks.js"></script>  -->
+</head>
+
+<body>
+    <header>
+        <div>
+            <a ui-sref="home">Home</a>
+            <a ui-sref="menu">Menu</a>
+            <!-- <a ui-sref="bakery">Bakery</a> -->
+            <a ui-sref="catering">Catering</a>
+            <a ui-sref="contactus">Contactus</a>
+        </div>
+    </header>
+    <section>
+        <ui-view></ui-view>
+    </section>
+    <footer>
+        © 2015 Peacock Indian Restaurants. All rights reserved.
+    </footer>
+</body>
+<script type="text/javascript">
+var myApp = angular.module('peacock', ['ui.router']);
+myApp.config(function($urlRouterProvider, $stateProvider) {
+     $urlRouterProvider.otherwise('/home');
+
+    $stateProvider.state('home', {
+        url: '/home',
+        templateUrl: 'home.html'
+    });
+    $stateProvider.state('menu', {
+        url: '/menu',
+        templateUrl: 'menu.html'
+        /*template: 'something'*/
+    });
+    $stateProvider.state('bakery', {
+        url: '/bakery',
+        templateUrl: 'bakery.html'
+    });
+    $stateProvider.state('catering', {
+        url: '/catering',
+        templateUrl: 'catering.html'
+    });
+    $stateProvider.state('contactus', {
+        url: '/contactus',
+        templateUrl: 'contactus.html'
+    });
+    $stateProvider.state('menu.brakefast', {
+        url: '/brakefast',
+        templateUrl: 'brakefast.html'
+    });
+    $stateProvider.state('menu.lunch', {
+        url: '/lunch',
+        templateUrl: 'lunch.html'
+    });
+    $stateProvider.state('menu.dinner', {
+        url: '/dinner',
+        templateUrl: 'dinner.html'
+    });
+    $stateProvider.state('menu.brakefast.south', {
+        url: '/south',
+        controller: 'southBreakFastController',
+        templateUrl: 'bfsouth.html'
+    });
+    $stateProvider.state('menu.brakefast.north', {
+        url: '/north',
+        controller: 'northBreakFastController',
+        templateUrl: 'bfnorth.html'
+    });
+    $stateProvider.state('menu.lunch.biryani', {
+        url: '/biryani',
+        templateUrl: 'biryani.html'
+    });
+    $stateProvider.state('menu.lunch.appetizers', {
+        url: '/appetizer',
+        templateUrl: 'appetizer.html'
+    });
+    $stateProvider.state('menu.dinner.dessert', {
+        url: '/dessert',
+        templateUrl: 'dessert.html'
+    });
+    $stateProvider.state('menu.dinner.salad', {
+        url: '/salad',
+        templateUrl: 'salad.html'
+    });
+    $stateProvider.state('bakery.birthdaycake', {
+        url: '/birthdaycake',
+        templateUrl: 'birthdaycake.html'
+    });
+    $stateProvider.state('bakery.weddingcake', {
+        url: '/weddingcake',
+        templateUrl: 'weddingcake.html'
+    });
+    $stateProvider.state('bakery.birthdaycake.boycake', {
+        url: '/boycake',
+        templateUrl: 'boycake.html'
+    });
+    $stateProvider.state('bakery.birthdaycake.girlcake', {
+        url: '/girlcake',
+        templateUrl: 'girlcake.html'
+    });
+    $stateProvider.state('bakery.weddingcake.mencake', {
+        url: '/mencake',
+        templateUrl: 'mencake.html'
+    });
+    $stateProvider.state('bakery.weddingcake.womencake', {
+        url: '/womencake',
+        templateUrl: 'womencake.html'
+    });
+    $stateProvider.state('catering.birthdayparty', {
+        url: '/birthdayparty',
+        templateUrl: 'birthdayparty.html'
+    });
+    $stateProvider.state('catering.receptionevent', {
+        url: '/reception',
+        templateUrl: 'reception.html'
+    });
+    $stateProvider.state('catering.birthdayparty.boycatering', {
+        url: '/boycatering',
+        templateUrl: 'boycatering.html'
+    });
+    $stateProvider.state('catering.birthdayparty.girlcatering', {
+        url: '/girlcatering',
+        templateUrl: 'girlcatering.html'
+    });
+    $stateProvider.state('catering.receptionevent.vegcatering', {
+        url: '/vegcatering',
+        templateUrl: 'vegcatering.html'
+    });
+    $stateProvider.state('catering.receptionevent.nonvegcatering', {
+        url: '/nonvegcatering',
+        templateUrl: 'nonvegcatering.html'
+    });
+});
+app.service('menuService', ['$http', function($http) {
+  this.getSouthBreakFastMenu = function() {
+     return $http.get('/getmenu?q=south-breakfast');
+  };
+  
+  this.getNorthBreakFastMenu = function() {
+     return $http.get('/getmenu?q=north-breakfast');
+  };
+  
+ }]);
+app.controller('southBreakFastController', ['$scope', 'menuService', function($scope, menuService) {
+
+//connect to server and get the menu for breakfast (south) 
+  menuService.getSouthBreakFastMenu().then(function(response) {
+    $scope.menu = response.data.menu;
+    $scope.message = response.statusText;
+  }, function(response) {
+     $scope.message = response.statusText;
+});
+  
+}]);
+app.controller('northBreakFastController', ['$scope', 'menuService', function($scope, menuService) {
+
+//connect to server and get the menu for breakfast (south) 
+  menuService.getNorthBreakFastMenu().then(function(response) {
+    $scope.menu = response.data.menu;
+    $scope.message = response.statusText;
+  }, function(response) {
+     $scope.message = response.statusText;
+});
+  
+}]);
+
+</script>
+
+</html>
